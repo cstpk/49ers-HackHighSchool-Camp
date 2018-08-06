@@ -119,15 +119,16 @@ for player, university in player_uni_dict.items():
         lat_long = {}
         lat_long["latitude"] = location.latitude
         lat_long["longitude"] = location.longitude
+        lat_long["location"] = location
         lat_long_dict[player] = lat_long
     except Exception as e:
         continue
 
 with open('player_file.csv', mode='w') as player_file:
     player_writer = csv.writer(player_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-    player_writer.writerow(['Player', 'Latitude', 'Longitude'])
+    player_writer.writerow(['Player', 'Location', 'Latitude', 'Longitude'])
     for player, latlong in lat_long_dict.items():
-        player_writer.writerow([player, latlong['latitude'], latlong['longitude']])
+        player_writer.writerow([player, latlong['location'], latlong['latitude'], latlong['longitude']])
 
 player_lat_long = pd.read_csv('player_file.csv')
 
@@ -136,7 +137,7 @@ data = [dict(
     locationmode = 'USA-states',
     lon = player_lat_long['Longitude'],
     lat = player_lat_long['Latitude'],
-    text = player_lat_long['Player'],
+    text = player_lat_long['Player'] + ' ' + player_lat_long['Location'],
     mode = 'markers'
     )]
 
