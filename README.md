@@ -1,3 +1,3 @@
-# 49ers-HackHighSchool-Camp
 
-Data visualization project for HackHighSchool Camp.
+
+Data visualization project for HackHighSchool Camp using plotly.
